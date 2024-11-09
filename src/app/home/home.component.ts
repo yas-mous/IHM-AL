@@ -7,7 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
-import {Patient} from "../models/patient";
 import {CardModule} from "primeng/card";
 import {PatientsTableComponent} from "../components/patients-table/patients-table.component";
 import {SideBarComponent} from "../components/side-bar/side-bar.component";
@@ -15,19 +14,23 @@ import {Button} from "primeng/button";
 import {SidebarModule} from "primeng/sidebar";
 import {PieComponent} from "../charts/pie/pie.component";
 import {LineChartComponent} from "../charts/line-chart/line-chart.component";
+import {HttpClientModule} from "@angular/common/http";
+import {PatientServiceService} from "../patient-service.service";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [TableModule, TagModule, IconFieldModule, InputTextModule,
     InputIconModule, MultiSelectModule, DropdownModule, CommonModule, CardModule,
-    PatientsTableComponent, SideBarComponent, Button, SidebarModule, PieComponent, LineChartComponent,],
-
+    PatientsTableComponent, SideBarComponent, Button, SidebarModule, PieComponent, LineChartComponent,HttpClientModule],
+  providers: [PatientServiceService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent  {
-
+ngOninit(){
+  console.log("heeeeere");
+}
 
 
 

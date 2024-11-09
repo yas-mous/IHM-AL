@@ -1,35 +1,55 @@
 import {Component, OnInit} from '@angular/core';
-import {Patient} from "../../models/patient";
+import {Patients} from "../../models/patients";
 import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
+import {PatientServiceService} from "../../patient-service.service";
+import {HttpClientModule} from "@angular/common/http";
+import {Patient} from "../../models/patient";
 
 @Component({
   selector: 'app-patients-table',
   standalone: true,
   imports: [
     CardModule,
-    TableModule
+    TableModule,
+    HttpClientModule
   ],
+  providers: [PatientServiceService],
   templateUrl: './patients-table.component.html',
   styleUrl: './patients-table.component.scss'
 })
 export class PatientsTableComponent implements OnInit{
 
-  patients!:Patient[];
+  constructor(private patientService: PatientServiceService) {}
+  patients!:Patients[];
+  data:any;
+  patient!:Patient[];
+  ngOnInit(): void {
+    console.log("heeeeeeeeeeeeeeere");
+    this.patientService.getHome().subscribe(response => {
+      this.data = response;
+      console.log(this.data);
+      console.log("start calling getPatientMethode");
+    });
+    console.log("start calling getPatientMethode");
+    this.patientService.getPatients().subscribe(response => {
+      this.patient = response;
+      console.log(this.patient);
+    });
+    console.log("start ");
 
-  ngOnInit() {
     this.patients = [
-      { name: 'Amy Elsner', age: '30',state:'normal' },
-      { name: 'Anna Fali', age: '30' ,state:'normal'},
-      { name: 'Asiya Javayant', age: '21' ,state:'normal'},
-      { name: 'Bernardo Dominic', age: '56' ,state:'normal'},
-      { name: 'Elwin Sharvill', age: '78' ,state:'normal'},
-      { name: 'Ioni Bowcher', age: '90',state:'normal' },
-      { name: 'Ivan Magalhaes', age: '65',state:'normal' },
-      { name: 'Onyama Limba', age: '73',state:'normal' },
-      { name: 'Stephen Shaw', age: '45',state:'normal' },
-      { name: 'Xuxue Feng', age: '66',state:'normal' }
+      { name: 'Amy Elsner', birthDate: '30',severity:'normal' },
+      { name: 'Anna Fali', birthDate: '30' ,severity:'normal'},
+      { name: 'Asiya Javayant', birthDate: '21' ,severity:'normal'},
+      { name: 'Bernardo Dominic', birthDate: '56' ,severity:'normal'},
+      { name: 'Elwin Sharvill', birthDate: '78' ,severity:'normal'},
+      { name: 'Ioni Bowcher', birthDate: '90',severity:'normal' },
+      { name: 'Ivan Magalhaes', birthDate: '65',severity:'normal' },
+      { name: 'Onyama Limba', birthDate: '73',severity:'normal' },
+      { name: 'Stephen Shaw', birthDate: '45',severity:'normal' },
+      { name: 'Xuxue Feng', birthDate: '66',severity:'normal' }
     ];
-
   }
+
 }
