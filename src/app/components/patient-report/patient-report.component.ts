@@ -17,7 +17,7 @@ import {PatientServiceService} from "../../patient-service.service";
 export class PatientReportComponent implements OnChanges {
   @Input() patientId: string | null = null; // Input for the patient ID
   patientReport: { [key: string]: string } = {}; // Dictionary to store key-value pairs
-
+  private DataApiUrl = 'http://localhost:8085/api/patient';
   constructor(private http: HttpClient) { }
 
   ngOnChanges(): void {
@@ -28,23 +28,41 @@ export class PatientReportComponent implements OnChanges {
   }
 
   // Simulate loading data from an API
-  loadPatientData(id: string |null): void {
-    if (id != null) {
-      // Replace this with actual HTTP API call if needed
-      this.patientReport = {
-        'Name': 'John Doe',
-        'Age': '45',
-        'Diagnosis': 'Hypertension',
-        'Treatment': 'Medication'
-      };
-    } else {
-      this.patientReport = {
-        'Name': 'Sample Patient',
-        'Age': '35',
-        'Diagnosis': 'Asthma',
-        'Treatment': 'Inhalers'
-      };
+
+  loadPatientData(id: string | null): void {
+    if (id) {
+      console.log(`${this.DataApiUrl}/${id}/data`);
+      this.http.get<any>(`${this.DataApiUrl}/${id}/data`).subscribe(
+        (data) => {
+          this.patientReport = this.transformToDictionary(data);
+          console.log(this.patientReport)
+        },
+        (error) => {
+          console.error('Error fetching patient data', error);
+        }
+      );
     }
+  }
+
+  private transformToDictionary(data: any): { [key: string]: any } {
+    const result: { [key: string]: any } = {};
+
+    // Directly add each key-value from the data object to the dictionary
+    Object.keys(data).forEach((key) => {
+      if (Array.isArray(data[key]) && data[key].length && typeof data[key][0] === 'object') {
+        // For arrays with objects, add the first element's keys as part of the dictionary
+        data[key].forEach((item: any, index: number) => {
+          Object.keys(item).forEach((subKey) => {
+            if(subKey != "patientId" && subKey != "id")
+              result[`${key}.${subKey}`] = item[subKey];
+          });
+        });
+      } else {
+        result[key] = data[key];
+      }
+    });
+
+    return result;
   }
   // Helper function to convert dictionary to key-value pairs
   getKeyValuePairs(report: { [key: string]: string }) {
