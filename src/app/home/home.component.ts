@@ -16,13 +16,14 @@ import {PieComponent} from "../charts/pie/pie.component";
 import {LineChartComponent} from "../charts/line-chart/line-chart.component";
 import {HttpClientModule} from "@angular/common/http";
 import {PatientServiceService} from "../patient-service.service";
+import { PatientReportComponent } from "../components/patient-report/patient-report.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [TableModule, TagModule, IconFieldModule, InputTextModule,
     InputIconModule, MultiSelectModule, DropdownModule, CommonModule, CardModule,
-    PatientsTableComponent, SideBarComponent, Button, SidebarModule, PieComponent, LineChartComponent,HttpClientModule],
+    PatientsTableComponent, SideBarComponent, Button, SidebarModule, PieComponent, LineChartComponent, HttpClientModule, PatientReportComponent],
   providers: [PatientServiceService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -30,6 +31,12 @@ import {PatientServiceService} from "../patient-service.service";
 export class HomeComponent  {
 ngOninit(){
   console.log("heeeeere");
+}
+selectedPatientId: string | null = null;
+
+onPatientSelect(patientId: string): void {
+  this.selectedPatientId = patientId;
+  console.log(this.selectedPatientId)
 }
 
 

@@ -8,13 +8,13 @@ import {Patient} from "./models/patient";
 })
 export class PatientServiceService {
 
-  private apiUrl = 'http://localhost:8085/api/patients';
+  private apiUrl = 'http://localhost:8080/api/patients';
 
   constructor(private http: HttpClient) {}
 
  /*methode to test connection with the api*/
-  getHome(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/home`,{ responseType: 'text' });
+  getHome(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
   getPatients(): Observable<Patient[]> {

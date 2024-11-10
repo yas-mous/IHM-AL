@@ -1,0 +1,17 @@
+<p-card header="Patient Report">
+    <p-table [value]="getKeyValuePairs(patientReport)" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr>
+          <td>{{ row.key }}</td>
+          <td>{{ row.value }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+  
