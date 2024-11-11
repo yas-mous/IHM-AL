@@ -1,17 +1,29 @@
-<p-card header="Patient Report">
-    <p-table [value]="getKeyValuePairs(patientReport)" [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Key</th>
-          <th>Value</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-row>
-        <tr>
-          <td>{{ row.key }}</td>
-          <td>{{ row.value }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </p-card>
+<p-card header="{{patientName}} Reporte">
+  <p-table [value]="getKeyValuePairs(patientReport)" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{ row.key }}</td>
+        <td>{{ row.value }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Doctor's note section -->
+  <div class="doctor-note-section">
+    <h3>Doctor's Note</h3>
+    <textarea [(ngModel)]="noteText" placeholder="Write your note here..." rows="4" style="width: 100%; margin-bottom: 10px;"></textarea>
+    <button
+      pButton
+      type="button"
+      (click)="submitNote()"
+      class="p-button-success"
+      style="font-size: 16px; padding: 10px 20px; width: 100%; background-color: #41ab5d;"
+    >Submit Note</button>
+  </div>
   

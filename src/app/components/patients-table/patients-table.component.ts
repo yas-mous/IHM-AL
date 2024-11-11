@@ -24,7 +24,7 @@ export class PatientsTableComponent implements OnInit{
   patients!:Patients[];
   data:any;
   patient!:Patient[];
-  @Output() patientSelected = new EventEmitter<string>();
+  @Output() patientSelected = new EventEmitter<{ patientId: string; patientName: string }>();
   ngOnInit(): void {
     console.log("heeeeeeeeeeeeeeere");
     this.patientService.getHome().subscribe(response => {
@@ -66,7 +66,7 @@ export class PatientsTableComponent implements OnInit{
     return age;
   }
 
-  viewReport(patientId: string): void {
-    this.patientSelected.emit(patientId);
+  viewReport(patientId: string, patientName: string) {
+    this.patientSelected.emit({ patientId, patientName });
   }
 }

@@ -4,20 +4,24 @@ import { Observable } from 'rxjs';
 import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
 import {PatientServiceService} from "../../patient-service.service";
-
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 @Component({
   standalone: true,
   selector: 'app-patient-report',
   templateUrl: './patient-report.component.html',
   imports: [
     CardModule,
-    TableModule  ],
+    TableModule,
+    FormsModule  // Add FormsModule here
+  ],
   styleUrls: ['./patient-report.component.scss']
 })
 export class PatientReportComponent implements OnChanges {
   @Input() patientId: string | null = null; // Input for the patient ID
+  @Input() patientName: string | null = null; // Input for the patient ID
   patientReport: { [key: string]: string } = {}; // Dictionary to store key-value pairs
   private DataApiUrl = 'http://localhost:8085/api/patient';
+  private PatientApiUrl = 'http://localhost:8080/api/patients';
   constructor(private http: HttpClient) { }
 
   ngOnChanges(): void {
@@ -67,6 +71,27 @@ export class PatientReportComponent implements OnChanges {
   // Helper function to convert dictionary to key-value pairs
   getKeyValuePairs(report: { [key: string]: string }) {
     return Object.entries(report).map(([key, value]) => ({ key, value }));
+  }
+
+
+  noteText: string = '';
+
+  submitNote() {
+    if (this.noteText.trim()) {
+      const payload = { patientId: this.patientId, note: this.noteText };
+      console.log(payload);
+    this.http.post(this.PatientApiUrl+'/doctor-note/submit', payload).subscribe({
+        next: response => {
+          console.log('Note submitted:', response);
+          this.noteText = ''; // Clear the textarea after submission
+        },
+        error: err => {
+          console.error('Error submitting note:', err);
+        }
+      });
+    } else {
+      alert('Please enter a note.');
+    }
   }
 
 }

@@ -13,7 +13,7 @@
         <td>{{ patient.name }}</td>
         <td>{{ calculateAge(patient.birthDate) }}</td>
         <td>{{patient.severity}}</td>
-        <td><button pButton label="View Report" (click)="viewReport(patient.id)">See report</button></td>
+        <td><button pButton label="View Report" (click)="viewReport(patient.id,patient.name)" style="font-size: 16px; padding: 10px 20px; width: 100%; background-color: #00b8ff;">See report</button></td>
       </tr>
     </ng-template>
   </p-table>

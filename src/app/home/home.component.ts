@@ -33,12 +33,13 @@ ngOninit(){
   console.log("heeeeere");
 }
 selectedPatientId: string | null = null;
+selectedPatientName: string | null = null;
 
-onPatientSelect(patientId: string): void {
-  this.selectedPatientId = patientId;
-  console.log(this.selectedPatientId)
+
+onPatientSelect(patient: { patientId: string; patientName: string }) {
+  this.selectedPatientId = patient.patientId;
+  this.selectedPatientName = patient.patientName;
 }
-
 
 
 }
