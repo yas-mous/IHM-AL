@@ -22,19 +22,19 @@
     <!-- Patient Name Display -->
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><h6 style="padding-top: 15px;">Doctor : Bernabe lelyon</h6></li>
+        <li><h6 style="padding-top: 15px;">Patient : {{selectedPatientName}}</h6></li>
       </ul>
     </div>
   </div><!-- /.container-fluid -->
 </nav>
-
 <div class="grid nested-grid">
-  <div class="col-6">
-    <app-patients-table (patientSelected)="onPatientSelect($event)"></app-patients-table>
-  </div>
-  <div class="col-6">
-    <div class="grid">
-      <app-patient-report [patientId]="selectedPatientId" [patientName]="selectedPatientName" [isDoctor]="true"></app-patient-report>
+    <div class="col-6">
+      <div class="grid">
+        <app-patient-report [patientId]="selectedPatientId" [patientName]="selectedPatientName"></app-patient-report>
+      </div>
+    </div>
+    <div class="col-6">
+        <app-doctor-note [patientId]="selectedPatientId" [patientName]="selectedPatientName"></app-doctor-note>
+
     </div>
   </div>
-</div>

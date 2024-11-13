@@ -1,4 +1,4 @@
-<p-card header="{{patientName}} Reporte">
+<p-card header="{{patientName}} Report">
   <p-table [value]="getKeyValuePairs(patientReport)" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
@@ -15,7 +15,7 @@
   </p-table>
 
   <!-- Doctor's note section -->
-  <div class="doctor-note-section">
+  <div *ngIf="isDoctor" class="doctor-note-section">
     <h3>Doctor's Note</h3>
     <textarea [(ngModel)]="noteText" placeholder="Write your note here..." rows="4" style="width: 100%; margin-bottom: 10px;"></textarea>
     <button

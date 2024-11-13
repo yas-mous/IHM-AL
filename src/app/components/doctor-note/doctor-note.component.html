@@ -1,0 +1,12 @@
+<div *ngIf="doctorNotes.length > 0; else noNotes">
+<h2>Doctor Notes :</h2>
+<div *ngFor="let note of doctorNotes" class="note-card">
+    <p><strong>Note:</strong> {{ note.note }}</p>
+    <p><strong>Created At:</strong> {{ note.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+</div>
+</div>
+
+<ng-template #noNotes>
+<p>No doctor notes available.</p>
+</ng-template>
+  

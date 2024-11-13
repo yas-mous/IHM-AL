@@ -5,11 +5,14 @@ import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
 import {PatientServiceService} from "../../patient-service.service";
 import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { CommonModule } from '@angular/common'; // Import CommonModule
+
 @Component({
   standalone: true,
   selector: 'app-patient-report',
   templateUrl: './patient-report.component.html',
   imports: [
+    CommonModule,
     CardModule,
     TableModule,
     FormsModule  // Add FormsModule here
@@ -19,6 +22,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
 export class PatientReportComponent implements OnChanges {
   @Input() patientId: string | null = null; // Input for the patient ID
   @Input() patientName: string | null = null; // Input for the patient ID
+  @Input() isDoctor: boolean  = false; // Input for the patient ID
   patientReport: { [key: string]: string } = {}; // Dictionary to store key-value pairs
   private DataApiUrl = 'http://localhost:8085/api/patient';
   private PatientApiUrl = 'http://localhost:8080/api/patients';
